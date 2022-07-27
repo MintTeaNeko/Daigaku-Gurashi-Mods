@@ -25,13 +25,14 @@ namespace AssetMod
             
             Catalog.LoadObjectAsset(Path.Combine(modPath, "crownbundle"), information.objAddresses[0], obj =>
             {
-                obj.transform.position = character.MyHair.gameObject.transform.position + new Vector3(settings.offSetX, settings.offSetY, settings.offSetZ);
-                obj.transform.parent = character.MyHair.gameObject.transform;
                 obj.transform.localScale = new Vector3(1, 1, 1);
                 Material mat = new Material(Shader.Find("Standard"));
                 mat.color = new Color(settings.ColorR/255, settings.ColorG/255, settings.ColorB/255);
                 
                 obj.GetComponent<MeshRenderer>().material = mat;
+                FloatingScript floatModule = obj.AddComponent<FloatingScript>();
+                floatModule.head = character.MyHair.gameObject;
+                floatModule.settings = this.settings;
             });
         }
     }
