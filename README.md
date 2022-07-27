@@ -21,6 +21,7 @@ Assembly-CSharp.dll (to access in game classes)
 ModLoader.dll
 UnityEngine.dll
 UnityEngine.CoreModule.dll
+UnityEngine.JSONSerializeModule.dll
 ...
 ```
 Now the fun stuff begin (I'd highly recommend working with dotpeek, or dnspy open).
