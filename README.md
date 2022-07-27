@@ -65,6 +65,16 @@ put the dll in the folder, and then make or copy a `mod.json` in it you need to 
 }
 ```
 
+the file structure is like so
+
+```
+mods 
+  - modName
+    - mod.json
+    - modDlluwu.dll
+  - ...
+```
+
 in the json you'd notice `"type": "namespace.class, dllname"` change it to your namespace, and your monobehavior class.
 In my example it was `namespace myMod` with the `class firstmod`, and the dll it will build is `MyMod.dll` 
 so in my case it would be `"type": "myMod.firstmod, MyMod"`.
