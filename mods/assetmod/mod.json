@@ -1,0 +1,8 @@
+{
+    "type": "AssetMod.Mod, AssetMod",
+    "modName": "AssetMod",
+    "modGameVersion": "0.9.0",
+    "objAddresses": [
+        "Crown 1LP"
+    ]
+}
