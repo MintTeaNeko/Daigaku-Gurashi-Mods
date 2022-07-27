@@ -7,7 +7,7 @@ you need to have Daigaku Gurashi version `v0.9.0`
 - put the `ModLoader.dll`, and the `mods` folder in the game folder itself.
 
 
-# Mod Creation
+# Mod Creation (Basic)
 
 If you want to make scripted mods for this game then you need `Visual Studio` or `JetBrains Rider`. 
 You also need to get `.Net Framework v4.8` Class Library, and a copy of the game (v0.9.0 ofc).
@@ -41,12 +41,16 @@ namespace myMod
       
       private void Start()
       {
+        // this gets an in game class EventManager
         manager = FindObjectOfType<EventManager>(true);
+        
+        // notifies the player at the bottom left
         manager.NotifyPlayer("Yay the mod has loaded!", 0);
-        // stuff to do when mono starts.
+        
+        // ...
       }
       
-      // Other code.
+      // ...
   }
 }
 ```
@@ -84,4 +88,58 @@ Goodjob you made you first working mod (the notification shows at the bottom lef
 for extra stuff `ModManager` has a `LogToFile(string text)` method which logs to a file in `%appdata%` with the name "ModLoaderLog.txt".
 I wish you good luck for now, and Happy modding! <3
 
-# More Advanced stuff coming soon.
+# Mod Creation (Advanced)
+
+In this section you need to know how to make, and build `assetbundles` in unity, and basic things in C#.
+
+The `ModLoader.dll` has a class for the mod's infromation called `ModInformation`, and another class called `Catalog`.
+
+`Catalog` => It has a method `LoadObjectAsset(string path, string address, Action<GameObject> callbackMethod)` which lets you load assetbundle `GameObjects`(will explain better in a bit).
+
+`ModInformation` => this is the `mod.json` it holds infromation about your mod like name, game version, etc.
+
+```cs
+using System;
+using UnityEngine;
+
+namespace myMod
+{
+  public class firstmod : MonoBehavior
+  {
+      private EventManager manager;
+      private ModInformation infromation;
+      private string modPath;
+      
+      private void Start()
+      {
+        manager = FindObjectOfType<EventManager>(true);
+        
+        // this gets the mod's directory aka "./../../mods/myMod"
+        modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        
+        // reads the mod.json, and converts it to an object.
+        information = JsonUtility.FromJson<ModInformation>(File.ReadAllText(Path.Combine(modPath, "mod.json")));
+        
+        manager.NotifyPlayer($"{infromation.modName} for {information.modGameVersion} has loaded", 0);
+        
+        /*
+         first parameter takes path to assetbundle
+         second parameter takes the GameObject's name you can use the mod.json's objAddresses for easier usage => mod.objAddresses[0..n]
+        */
+        Catalog.LoadObjectAsset(Path.Combine(modPath, "assetbundle"), "gameObjectName", obj => {
+        
+           // assign a material else the GameObject is invisible
+           Material mat = new Material(Shader.Find("Standard"));
+           mat.color = new Color(1, 1, 1);
+           obj.GetComponent<MeshRenderer>().material = mat;
+           
+           obj.transform.position = manager.Student[0].transform.position;
+           
+           // ...
+        });
+      }
+      
+      // ...
+  }
+}
+```
