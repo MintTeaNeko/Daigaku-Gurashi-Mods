@@ -65,7 +65,7 @@ put the dll in the folder, and then make or copy a `mod.json` in it you need to 
 }
 ```
 
-the file structure is like so
+the file structure for mods is like so.
 
 ```
 mods 
