@@ -26,8 +26,8 @@ UnityEngine.CoreModule.dll
 Now the fun stuff begin (I'd highly recommend working with dotpeek, or dnspy open).
 In the C# decompiler look for `EventManager` class (it's the one we gonna use in the example).
 it has `NotifyPlayer(string MessageText, int wwww)` 
- - MessageText => the message it gonna show in the notification.
- - wwww => is an int of a sound it's gonna play (just use 0).
+ - `MessageText =>` the message it gonna show in the notification.
+ - `wwww =>` is an int of a sound it's gonna play (just use 0).
 
 ```cs
 using System;
